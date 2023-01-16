@@ -1,1 +1,1 @@
-# beancount-desktop
+# beancount-web
