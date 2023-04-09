@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "copy-config": "ncp src/config dist/config",
+    "build": "tsc && npm run copy-config",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.15.0",
+    "fastify-plugin": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "ncp": "^2.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
