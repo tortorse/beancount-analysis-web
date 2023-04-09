@@ -2,9 +2,6 @@
 import { readBeanFilePath } from "../bean-file-path/readBeanFIlePath.js";
 import { execBQL } from "../utilities/utils.js";
 
-// 读取配置文件中的 Beancount 文件路径
-const beanFilePath = readBeanFilePath();
-
 interface MonthExpenseData {
   year: string;
   month: string;
@@ -18,6 +15,7 @@ interface MonthExpenseData {
  * @returns
  */
 function getMonthExpensesData(year: number, month: number): MonthExpenseData[] {
+  const beanFilePath = readBeanFilePath();
   // 构造 BQL 查询语句
   const bql = `SELECT year, month, account, sum(cost(position)) as total WHERE account ~ 'Expenses:' and year = ${year} and month = ${month} GROUP BY year,month, account ORDER BY total, account DESC`;
 
