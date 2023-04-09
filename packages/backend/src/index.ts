@@ -1,11 +1,13 @@
 import Fastify from "fastify";
-import beanfileAPI from "./api/readBeanFIlePath.js";
+import readbeanfileAPI from "./api/readBeanFIlePath.js";
 import setBeanFilePathAPI from "./api/setBeanFilePath.js";
+import getMonthExpensesAPI from "./api/getMonthExpenses.js";
 
 const fastify = Fastify({ logger: true });
 
-fastify.register(beanfileAPI, { prefix: "/api" });
+fastify.register(readbeanfileAPI, { prefix: "/api" });
 fastify.register(setBeanFilePathAPI, { prefix: "/api" });
+fastify.register(getMonthExpensesAPI, { prefix: "/api" });
 
 const start = async () => {
   try {
