@@ -1,6 +1,4 @@
-// src/cmd/bean-query/getDistinctYearMonths.ts
-import { readBeanFilePath } from "../bean-file-path/readBeanFIlePath.js";
-import { execBQL } from "../utilities/utils.js";
+import { execBQL, getConfig } from "../utilities/utils.js";
 
 interface YearMonth {
   year: number;
@@ -13,7 +11,7 @@ interface YearMonth {
  */
 function getDistinctYearMonths(): YearMonth[] {
   // 读取配置文件中的 Beancount 文件路径
-  const beanFilePath = readBeanFilePath();
+  const { beanFilePath } = getConfig();
   // 构造 BQL 查询语句
   const bql = `SELECT DISTINCT year(date), month(date)`;
 

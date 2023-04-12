@@ -1,15 +1,17 @@
 import Fastify from "fastify";
-import readbeanfileAPI from "./api/readBeanFIlePath.js";
-import setBeanFilePathAPI from "./api/setBeanFilePath.js";
+import readConfigAPI from "./api/readConfig.js";
+import setConifgAPI from "./api/setConfig.js";
 import getMonthExpensesAPI from "./api/getMonthExpenses.js";
 import getDistinctYearMonthsAPI from "./api/getDistinctYearMonths.js";
+import getMonthIncomeAPI from './api/getMonthIncome.js'
 
 
 const fastify = Fastify({ logger: true });
 
-fastify.register(readbeanfileAPI, { prefix: "/api" });
-fastify.register(setBeanFilePathAPI, { prefix: "/api" });
+fastify.register(readConfigAPI, { prefix: "/api" });
+fastify.register(setConifgAPI, { prefix: "/api" });
 fastify.register(getMonthExpensesAPI, { prefix: "/api" });
+fastify.register(getMonthIncomeAPI, { prefix: "/api" });
 fastify.register(getDistinctYearMonthsAPI, { prefix: "/api" });
 
 const start = async () => {

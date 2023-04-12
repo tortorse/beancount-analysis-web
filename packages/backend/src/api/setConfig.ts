@@ -1,22 +1,23 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { writeBeanFilePath } from "../cmd/bean-file-path/writeBeanFilePath.js";
+import { saveConfig } from "../cmd/utilities/utils.js";
 
-interface SetBeanFilePathBody {
+interface SetConfigBody {
   beanFilePath: string;
+  operatingCurrency?: string;
 }
 
-interface SetBeanFilePath {
+interface SetConfig {
   (
     request: FastifyRequest<{
-      Body: SetBeanFilePathBody;
+      Body: SetConfigBody;
     }>,
     reply: FastifyReply
   ): Promise<void>;
 }
 
-const setBeanFilePath: SetBeanFilePath = async function (request, reply) {
+const setBeanFilePath: SetConfig = async function (request, reply) {
   try {
-    writeBeanFilePath(request.body.beanFilePath);
+    saveConfig(request.body);
     reply.send({ message: "Bean file path successfully updated.", status: 1 });
   } catch (error) {
     reply.status(500).send({

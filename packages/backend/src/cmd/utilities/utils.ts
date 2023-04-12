@@ -10,20 +10,23 @@ const configPath = path.join(__dirname, "../../", "config", "config.json");
 interface Config {
   /** beancount 主文件路径 */
   beanFilePath: string;
+  /** 货币单位 */
+  operatingCurrency?: string;
 }
 
 /**
  * 读取配置文件
- * @returns {object} config 配置对象
+ * @returns {Config} 配置对象
  */
 
 export const getConfig = (): Config => {
   return JSON.parse(fs.readFileSync(configPath, "utf8"));
 };
 
+
 /**
  * 保存配置文件
- * @param {object} config 配置对象
+ * @param {Config} config 配置对象
  */
 
 export const saveConfig = (config: Config): void => {

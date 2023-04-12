@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { readBeanFilePath } from "../cmd/bean-file-path/readBeanFIlePath.js";
+import { getConfig } from "../cmd/utilities/utils.js";
 
 /**
  * 获取 bean 文件路径
@@ -17,7 +17,7 @@ interface GetBeanFilePath {
  */
 const getBeanFilePath: GetBeanFilePath = async function (request, reply) {
   try {
-    const beanFilePath = readBeanFilePath();
+    const { beanFilePath } = getConfig();
     reply.send({ data: beanFilePath, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({

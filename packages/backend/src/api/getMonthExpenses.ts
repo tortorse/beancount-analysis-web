@@ -1,17 +1,19 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { getMonthExpensesData } from "../cmd/bean-query/getMonthExpensesData.js";
+import { getMonthExpensesData } from "../cmd/bean-query/getMonthData.js";
 
 interface GetMonthExpenses {
   (
-    request: FastifyRequest<{ Querystring: { year: number; month: number } }>,
+    request: FastifyRequest<{
+      Querystring: { year: number; month: number; level: number };
+    }>,
     reply: FastifyReply
   ): Promise<void>;
 }
 
 const getMonthExpenses: GetMonthExpenses = async function (request, reply) {
   try {
-    const { year, month } = request.query;
-    const expensesData = getMonthExpensesData(year, month);
+    const { year, month, level } = request.query;
+    const expensesData = getMonthExpensesData(year, month, level);
     reply.send({ data: expensesData, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({
