@@ -1,6 +1,6 @@
 import { checkBeanFile, execBQL, getConfig } from "../utilities/utils.js";
 
-interface MonthData {
+interface YearData {
   year: string;
   month: string;
   account: string;
@@ -16,16 +16,12 @@ interface MonthData {
  * @param account - 账户
  * @returns 月数据
  */
-function getMonthData(
-  year: number,
-  month: number,
-  level: number,
-  account: string
-): MonthData[]{
+function getYearData(year: number, account: string): YearData[] {
   const { beanFilePath, operatingCurrency } = getConfig();
   if (checkBeanFile(beanFilePath)) {
+    const level = 1;
     // 构造 BQL 查询语句
-    const bql = `SELECT year, month, root(account, ${level}) as subAccount, sum(convert(value(position), '${operatingCurrency}')) as total WHERE account ~ '${account}' and year = ${year} and month = ${month} GROUP BY year, month, subAccount ORDER BY total DESC`;
+    const bql = `SELECT year, month, root(account, ${level}) as subAccount, sum(convert(value(position), '${operatingCurrency}')) as total WHERE account ~ '${account}' and year = ${year} GROUP BY year, month, subAccount ORDER BY month ASC`;
     // 执行查询
     const result = execBQL(beanFilePath, bql);
 
@@ -45,37 +41,26 @@ function getMonthData(
         }
         return null;
       })
-      .filter((r) => r) as MonthData[];
+      .filter((r) => r) as YearData[];
   } else {
     throw new Error("beancount file is not exist");
   }
 }
 
-
-function getMonthExpensesData(
-  year: number,
-  month: number,
-  level: number
-): MonthData[] {
+function getYearExpensesData(year: number): YearData[] {
   try {
-    return getMonthData(year, month, level, "Expenses");
+    return getYearData(year, "Expenses");
   } catch (error) {
     throw error;
   }
 }
 
-
-function getMonthIncomeData(
-  year: number,
-  month: number,
-  level: number
-): MonthData[] {
+function getYearIncomeData(year: number): YearData[] {
   try {
-    return getMonthData(year, month, level, "Income");
+    return getYearData(year, "Income");
   } catch (error) {
     throw error;
   }
 }
 
-
-export { getMonthExpensesData, getMonthIncomeData };
+export { getYearExpensesData, getYearIncomeData };

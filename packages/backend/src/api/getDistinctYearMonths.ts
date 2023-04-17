@@ -3,7 +3,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getDistinctYearMonths } from "../cmd/bean-query/getDistinctYearMonths.js";
 
 interface GetDistinctYearMonths {
-   (request: FastifyRequest, reply: FastifyReply): Promise<void>;
+  (request: FastifyRequest, reply: FastifyReply): Promise<void>;
 }
 
 const getDistinctYearMonthsHandler: GetDistinctYearMonths = async function (
@@ -15,8 +15,7 @@ const getDistinctYearMonthsHandler: GetDistinctYearMonths = async function (
     reply.send({ data: yearMonths, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({
-      message:
-        "An error occurred while fetching the distinct year and month values.",
+      message: `An error occurred while fetching the distinct year and month value.${error}`,
       status: 0,
     });
   }

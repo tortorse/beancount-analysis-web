@@ -15,7 +15,7 @@ interface SetConfig {
   ): Promise<void>;
 }
 
-const setBeanFilePath: SetConfig = async function (request, reply) {
+const setConifg: SetConfig = async function (request, reply) {
   try {
     saveConfig(request.body);
     reply.send({ message: "Bean file path successfully updated.", status: 1 });
@@ -28,5 +28,5 @@ const setBeanFilePath: SetConfig = async function (request, reply) {
 };
 
 export default async function (fastify: FastifyInstance) {
-  fastify.post("/beanfile-config/set", setBeanFilePath);
+  fastify.post("/beanfile-config/set", setConifg);
 }

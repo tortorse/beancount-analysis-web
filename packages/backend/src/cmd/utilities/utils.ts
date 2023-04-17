@@ -25,6 +25,16 @@ export const getConfig = (): Config => {
 
 
 /**
+ *  检查文件是否存在
+ * @param {string} beanFilePath - bean 文件路径
+ * @returns {boolean} - 文件是否存在
+ */
+
+export const checkBeanFile = (beanFilePath:string): boolean => {
+  return fs.existsSync(beanFilePath);
+}
+
+/**
  * 保存配置文件
  * @param {Config} config 配置对象
  */
@@ -44,3 +54,4 @@ export function execBQL(beanFilePath: string, bql: string): string {
   const result = execSync(cmd).toString();
   return result;
 }
+

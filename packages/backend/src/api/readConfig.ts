@@ -15,10 +15,10 @@ interface GetBeanFilePath {
  * @param request 请求对象
  * @param reply 响应对象
  */
-const getBeanFilePath: GetBeanFilePath = async function (request, reply) {
+const readConfig: GetBeanFilePath = async function (request, reply) {
   try {
-    const { beanFilePath } = getConfig();
-    reply.send({ data: beanFilePath, message: "success", status: 1 });
+    const configData= getConfig();
+    reply.send({ configData, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({
       message: "An error occurred while fetching the bean file path.",
@@ -28,5 +28,5 @@ const getBeanFilePath: GetBeanFilePath = async function (request, reply) {
 };
 
 export default async function (fastify: FastifyInstance) {
-  fastify.get("/beanfile-config/read", getBeanFilePath);
+  fastify.get("/beanfile-config/read", readConfig);
 }

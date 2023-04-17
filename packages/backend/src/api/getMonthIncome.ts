@@ -17,7 +17,7 @@ const GetMonthIncome: GetMonthIncome = async function (request, reply) {
     reply.send({ data: incomeData, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({
-      message: "An error occurred while fetching the month income data.",
+      message: `An error occurred while fetching the month income data.${error}`,
       status: 0,
     });
   }
