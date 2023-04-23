@@ -16,3 +16,21 @@ export interface SuccessResponse {
   /** 状态 1: 成功 0: 失败 */
   status: number;
 }
+
+export interface BeanData {
+  year: string;
+  month: string;
+  account: string;
+  amount: number;
+  currency: string;
+}
+
+export interface DataOptions {
+  year: string;
+  month?: string;
+  level: string;
+}
+
+export type Account = "expenses" | "income";
+export type DateMode = "year" | "month";
+export type ChartMode = "line" | "column" | "pie";
