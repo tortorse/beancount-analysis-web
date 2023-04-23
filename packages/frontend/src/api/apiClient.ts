@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { YearMonth, Config, SuccessResponse } from "../interfaces";
+import { YearMonth, Config, SuccessResponse, Account, BeanData, DateMode, DataOptions } from "../interfaces";
 
 const API_HOST = import.meta.env.VITE_API_HOST;
 
@@ -44,7 +44,7 @@ export async function getConfig(): Promise<Config | undefined> {
  */
 export async function saveConfig(beanFilePath: string, operatingCurrency: string): Promise<SuccessResponse | undefined> {
   try {
-    const response: AxiosResponse<{ message:string, status:number }> = await apiClient.post(
+    const response: AxiosResponse<{ message: string, status: number }> = await apiClient.post(
       "/api/beanfile-config/set",
       {
         beanFilePath,
@@ -58,3 +58,24 @@ export async function saveConfig(beanFilePath: string, operatingCurrency: string
 }
 
 
+export async function getData(account: Account, range: DateMode, options: DataOptions) {
+  const params = objectToUrlParams(options);
+  try {
+    const response: AxiosResponse<{ data: BeanData[] }> = await apiClient.get(
+      `/api/${account}/${range}?${params}`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function objectToUrlParams(option: Record<string, any>): string {
+  const params = new URLSearchParams();
+  for (const key in option) {
+    if (Object.prototype.hasOwnProperty.call(option, key)) {
+      params.append(key, option[key]);
+    }
+  }
+  return params.toString();
+}
