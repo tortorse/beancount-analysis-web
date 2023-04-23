@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="container">
+    <div class="tip">
       <a-alert
         description="您尚未配置任何有关 beancount 的信息，请在下方填写"
         type="info"
@@ -10,29 +10,33 @@
         <template #icon><smile-outlined /></template>
       </a-alert>
     </div>
-    <a-form :model="configForm">
-      <a-form-item label="文件路径">
-        <a-input
-          v-model:value="configForm.beanFilePath"
-          placeholder="/Users/your-username/beancount-file-path/main.bean"
-        />
-      </a-form-item>
-      <a-form-item label="货币单位">
-        <a-input
-          v-model:value="configForm.operatingCurrency"
-          placeholder="CNY"
-        />
-      </a-form-item>
-      <a-form-item>
-        <a-button
-          type="primary"
-          html-type="submit"
-          @click="save"
-          :loading="loading"
-          >保存</a-button
-        >
-      </a-form-item>
-    </a-form>
+    <a-row jusitify="center">
+      <a-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20" :xxl="20" :xxxl="20">
+        <a-form :model="configForm">
+          <a-form-item label="文件路径">
+            <a-input
+              v-model:value="configForm.beanFilePath"
+              placeholder="/Users/your-username/beancount-file-path/main.bean"
+            />
+          </a-form-item>
+          <a-form-item label="货币单位">
+            <a-input
+              v-model:value="configForm.operatingCurrency"
+              placeholder="CNY"
+            />
+          </a-form-item>
+          <a-form-item>
+            <a-button
+              type="primary"
+              html-type="submit"
+              @click="save"
+              :loading="loading"
+              >保存</a-button
+            >
+          </a-form-item>
+        </a-form>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
