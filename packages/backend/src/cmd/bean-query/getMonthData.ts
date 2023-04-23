@@ -26,6 +26,7 @@ function getMonthData(
   if (checkBeanFile(beanFilePath)) {
     // 构造 BQL 查询语句
     const bql = `SELECT year, month, root(account, ${level}) as subAccount, sum(convert(value(position), '${operatingCurrency}')) as total WHERE account ~ '${account}' and year = ${year} and month = ${month} GROUP BY year, month, subAccount ORDER BY total DESC`;
+    console.log('===bql===', bql)
     // 执行查询
     const result = execBQL(beanFilePath, bql);
 
