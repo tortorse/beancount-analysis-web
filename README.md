@@ -1,5 +1,7 @@
 ## Beancount Analysis Web
 
+[简体中文](./README-zh_CN.md)
+
 Beancount Analysis Web is a project that presents Beancount account statistical analysis through a web interface. It currently supports analysis of annual expenses, annual income, monthly expenses, and monthly income.
 
 ### Tech Stack
