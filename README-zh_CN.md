@@ -4,6 +4,10 @@
 
 Beancount Analysis Web 是一个使用 Web 方式展示 Beancount 账目统计分析的项目。目前支持年支出、年收入、月支出和月收入的分析。
 
+## 前提条件
+
+本项目依赖于已经安装的 Beancount 中的 `bean-query` 命令，因此在使用本项目之前，请确保您已经正确安装了 Beancount。关于 Beanc
+
 ### 技术栈
 
 - 前端框架: Vue3

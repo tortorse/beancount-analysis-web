@@ -4,6 +4,11 @@
 
 Beancount Analysis Web is a project that presents Beancount account statistical analysis through a web interface. It currently supports analysis of annual expenses, annual income, monthly expenses, and monthly income.
 
+## Prerequisites
+
+This project relies on the `bean-query` command from an already installed Beancount, so before using this project, make sure you have Beancount installed correctly. For installation and usage of Beancount, you can refer to the [Beancount project's introduction](https://github.com/beancount/beancount) for more details.
+
+
 ### Tech Stack
 
 - Frontend framework: Vue3
