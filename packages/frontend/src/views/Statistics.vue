@@ -11,7 +11,9 @@
         :xxxl="24"
         class="navigator"
       >
-        <a-typography-title :level="1">Beancount Analysis Web</a-typography-title>
+        <a-typography-title :level="1"
+          >Beancount Analysis Web</a-typography-title
+        >
         <a-button @click="goToSettingPage" size="small"
           ><template #icon><setting-outlined /></template>设置</a-button
         >
@@ -107,7 +109,12 @@
                 :value="total"
               />
               <a-statistic
-                v-if="!chartLoading && chartData.length > 0 && selectedAccount === 'expenses'"
+                v-if="
+                  !chartLoading &&
+                  chartData.length > 0 &&
+                  selectedAccount === 'expenses' &&
+                  selectedDateMode === 'year'
+                "
                 :title="`${
                   selectedDateMode === 'year' ? '月' : '日'
                 }均${getValueByOtherKey(
@@ -336,7 +343,7 @@ function averageAmounts(total: number, count: number): string {
 }
 </script>
 <style>
-.container h1.ant-typography{
+.container h1.ant-typography {
   margin-bottom: 0;
   font-size: 24px;
 }

@@ -1,0 +1,14 @@
+2023-04-01 * "路边停车" "停车费🅿️" 
+  time:"09:10"
+  Liabilities:CreditCard   -20.00 CNY
+  Expenses:Traffic:停车费
+
+2023-04-01 * "小饭店" "吃饭"
+  time:"12:00"
+  Liabilities:CreditCard   -15.00 CNY
+  Expenses:Food:午餐
+  
+2023-04-10 * "公司" "工资"
+  time:"15:30"
+  Assets:Wallet:现金:CNY    9999.00 CNY
+  Income:Salary
