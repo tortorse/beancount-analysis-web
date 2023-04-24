@@ -4,20 +4,21 @@
       <a-col
         :xs="24"
         :sm="24"
-        :md="20"
-        :lg="20"
-        :xl="20"
-        :xxl="20"
-        :xxxl="20"
+        :md="24"
+        :lg="24"
+        :xl="24"
+        :xxl="24"
+        :xxxl="24"
         class="navigator"
       >
+        <a-typography-title :level="1">Beancount Analysis Web</a-typography-title>
         <a-button @click="goToSettingPage" size="small"
           ><template #icon><setting-outlined /></template>设置</a-button
         >
       </a-col>
     </a-row>
 
-    <a-row justify="center" class="main">
+    <a-row justify="center">
       <a-col :xs="24" :sm="24" :md="20" :lg="20" :xl="20" :xxl="20" :xxxl="20">
         <a-card>
           <template #title>
@@ -106,7 +107,7 @@
                 :value="total"
               />
               <a-statistic
-                v-if="!chartLoading && chartData.length > 0"
+                v-if="!chartLoading && chartData.length > 0 && selectedAccount === 'expenses'"
                 :title="`${
                   selectedDateMode === 'year' ? '月' : '日'
                 }均${getValueByOtherKey(
@@ -205,7 +206,7 @@ onBeforeMount(async () => {
   }
 });
 const goToSettingPage = () => {
-  router.push({ name: "BeanCountConfig" });
+  router.replace({ name: "BeanCountConfig" });
 };
 const onSwitchDateMode = (e: RadioChangeEvent) => {
   selectedDateMode.value = e.target.value;
@@ -335,10 +336,18 @@ function averageAmounts(total: number, count: number): string {
 }
 </script>
 <style>
+.container h1.ant-typography{
+  margin-bottom: 0;
+  font-size: 24px;
+}
+
 .navigator {
-  padding: 16px 0;
+  padding: 16px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 32px;
 }
 
 .operator {
