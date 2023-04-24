@@ -7,8 +7,7 @@
   "scripts": {
     "copy-config": "ncp src/config dist/config",
     "build": "tsc && npm run copy-config",
-    "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
