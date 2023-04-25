@@ -46,4 +46,4 @@ pnpm run build
 pnpm run start
 ```
 
-在完成上述步骤后，项目应该已经成功运行，你可以在浏览器中访问前端并查看 Beancount 账目的统计分析。
+在完成上述步骤后，项目应该已经成功运行，你可以在浏览器中访问前端 <http://localhost:4173/> 并查看 Beancount 账目的统计分析。

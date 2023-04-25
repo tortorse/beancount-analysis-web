@@ -45,4 +45,4 @@ pnpm run build
 pnpm run start
 ```
 
-After completing the above steps, the project should be running successfully, and you can access the frontend in your browser to view the statistical analysis of Beancount accounts.
+After completing the above steps, the project should be running successfully, and you can access the frontend <http://localhost:4173/> in your browser to view the statistical analysis of Beancount accounts.
