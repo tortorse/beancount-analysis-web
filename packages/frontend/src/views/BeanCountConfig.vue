@@ -120,12 +120,13 @@ const saveFailue = (errorInfo: Error) => {
 };
 
 const checkFile = async (_rule: Rule, value: string) => {
-  const checkResult = await checkBeanFileExist(value);
   if (value === "") {
     return Promise.reject("请输入完整的 bean 文件路径");
-  }
-  if (!checkResult) {
-    return Promise.reject("bean 文件不存在，请检查");
+  } else {
+    const checkResult = await checkBeanFileExist(value);
+    if (!checkResult) {
+      return Promise.reject("bean 文件不存在，请检查");
+    }
   }
 };
 
