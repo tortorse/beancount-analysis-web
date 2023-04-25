@@ -40,13 +40,17 @@
               label="文件路径"
               name="beanFilePath"
               :rules="[
-                { required: true, message: '请输入完整的 beancount 文件路径' },
+                {
+                  required: true,
+                  validator: checkFile,
+                },
               ]"
             >
               <a-input
                 v-model:value="configForm.beanFilePath"
                 placeholder="/your-beancount-file-path/your-beanfile.bean"
-              />
+              >
+              </a-input>
             </a-form-item>
             <a-form-item
               label="货币单位"
@@ -59,7 +63,10 @@
               />
             </a-form-item>
             <a-form-item>
-              <a-button type="primary" html-type="submit" :loading="loading"
+              <a-button
+                type="primary"
+                html-type="submit"
+                :loading="buttonLoading"
                 >保存</a-button
               >
             </a-form-item>
@@ -76,12 +83,15 @@ import "ant-design-vue/es/message/style/css"; //vite只能用 ant-design-vue/es 
 import { LeftOutlined, SmileOutlined } from "@ant-design/icons-vue";
 
 import { onBeforeMount, ref } from "vue";
-import { getConfig, saveConfig } from "../api/apiClient";
+import { checkBeanFileExist, getConfig, saveConfig } from "../api/apiClient";
 import { Config } from "../interfaces";
 import router from "../router";
+import { Rule } from "ant-design-vue/lib/form/interface";
 let configForm = ref<Config>({ beanFilePath: "", operatingCurrency: "" });
 let showTip = ref<Boolean>(false);
-let loading = ref<Boolean>(false);
+let buttonLoading = ref<Boolean>(false);
+let checkLoading = ref<Boolean>(false);
+
 onBeforeMount(async () => {
   const config = await getConfig();
   if (config && config.beanFilePath !== "" && config.operatingCurrency !== "") {
@@ -91,12 +101,12 @@ onBeforeMount(async () => {
   }
 });
 const save = async () => {
-  loading.value = true;
+  buttonLoading.value = true;
   const saveResult = await saveConfig(
     configForm.value.beanFilePath,
     configForm.value.operatingCurrency
   );
-  loading.value = false;
+  buttonLoading.value = false;
   if (saveResult && saveResult.status === 1) {
     message.success("保存成功");
     router.replace({ name: "Statistics" });
@@ -107,6 +117,16 @@ const save = async () => {
 
 const saveFailue = (errorInfo: Error) => {
   console.log("Failed:", errorInfo);
+};
+
+const checkFile = async (_rule: Rule, value: string) => {
+  const checkResult = await checkBeanFileExist(value);
+  if (value === "") {
+    return Promise.reject("请输入完整的 bean 文件路径");
+  }
+  if (!checkResult) {
+    return Promise.reject("bean 文件不存在，请检查");
+  }
 };
 
 const gotoStatisticsPage = () => {

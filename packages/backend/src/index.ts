@@ -8,6 +8,7 @@ import getDistinctYearMonthsAPI from "./api/getDistinctYearMonths.js";
 import getMonthIncomeAPI from "./api/getMonthIncome.js";
 import getYearExpensesAPI from "./api/getYearExpenses.js";
 import getYearIncomeAPI from "./api/getYearIncome.js";
+import checkBeanFile from "./api/validateBeanFile.js";
 
 const fastify = Fastify({ logger: true });
 
@@ -18,6 +19,7 @@ fastify.register(getMonthIncomeAPI, { prefix: "/api" });
 fastify.register(getDistinctYearMonthsAPI, { prefix: "/api" });
 fastify.register(getYearExpensesAPI, { prefix: "/api" });
 fastify.register(getYearIncomeAPI, { prefix: "/api" });
+fastify.register(checkBeanFile, { prefix: "/api" });
 // Register the fastify-cors plugin
 fastify.register(fastifyCors, {
   // Configure the allowed origins
