@@ -12,9 +12,9 @@ interface GetYearExpenses {
 
 const GetYearExpenses: GetYearExpenses = async function (request, reply) {
   try {
-    const { year} = request.query;
+    const { year } = request.query;
     const incomeData = getYearExpensesData(year);
-    reply.send({ data: incomeData, message: "success", status: 1 });
+    reply.send({ data: incomeData, count: 12, message: "success", status: 1 });
   } catch (error) {
     reply.status(500).send({
       message: `An error occurred while fetching the year expenses data.${error}`,

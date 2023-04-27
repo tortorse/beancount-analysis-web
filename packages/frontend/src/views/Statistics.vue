@@ -1,22 +1,10 @@
 <template>
   <div class="container">
     <a-row justify="center">
-      <a-col
-        :xs="24"
-        :sm="24"
-        :md="24"
-        :lg="24"
-        :xl="24"
-        :xxl="24"
-        :xxxl="24"
-        class="navigator"
-      >
-        <a-typography-title :level="1"
-          >Beancount Analysis Web</a-typography-title
-        >
-        <a-button @click="goToSettingPage" size="small"
-          ><template #icon><setting-outlined /></template>设置</a-button
-        >
+      <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" :xxl="24" :xxxl="24" class="navigator">
+        <a-typography-title :level="1">Beancount Analysis Web</a-typography-title>
+        <a-button @click="goToSettingPage" size="small"><template #icon><setting-outlined /></template>{{ $t("settings")
+        }}</a-button>
       </a-col>
     </a-row>
 
@@ -27,64 +15,36 @@
             <div class="operator">
               <div class="switcher">
                 <a-space>
-                  <a-radio-group
-                    v-model:value="selectedDateMode"
-                    :options="dateModeOptions"
-                    optionType="button"
-                    @change="onSwitchDateMode"
-                  ></a-radio-group>
+                  <a-radio-group v-model:value="selectedDateMode" :options="dateModeOptions" optionType="button"
+                    @change="onSwitchDateMode"></a-radio-group>
                   <loading-outlined v-if="dateTimeSelectLoading" />
-                  <a-select
-                    v-model:value="selectedDatetime"
-                    @change="onDatetimeChange"
-                    v-if="!dateTimeSelectLoading"
-                  >
-                    <a-select-option
-                      v-for="item in date"
-                      :key="item"
-                      :value="item"
-                      >{{ item }}</a-select-option
-                    >
+                  <a-select v-model:value="selectedDatetime" @change="onDatetimeChange" v-if="!dateTimeSelectLoading">
+                    <a-select-option v-for="item in date" :key="item" :value="item">{{ item }}</a-select-option>
                   </a-select>
                 </a-space>
               </div>
               <div class="account-tabs">
-                <a-tabs
-                  v-model:activeKey="selectedAccount"
-                  centered
-                  :tabBarStyle="{ marginBottom: '-1px' }"
-                  @change="onAccountChange"
-                >
-                  <a-tab-pane
-                    v-for="account in accounts"
-                    :key="account.key"
-                    :tab="account.tab"
-                  ></a-tab-pane>
+                <a-tabs v-model:activeKey="selectedAccount" centered :tabBarStyle="{ marginBottom: '-1px' }"
+                  @change="onAccountChange">
+                  <a-tab-pane v-for="account in accounts" :key="account.key" :tab="account.tab"></a-tab-pane>
                 </a-tabs>
               </div>
             </div>
           </template>
           <template #extra>
-            <a-radio-group
-              v-model:value="selectedChartMode"
-              v-if="selectedDateMode === 'year'"
-            >
-              <a-radio-button value="line"
-                ><line-chart-outlined
-              /></a-radio-button>
-              <a-radio-button value="column"
-                ><bar-chart-outlined
-              /></a-radio-button>
+            <a-radio-group v-model:value="selectedChartMode" v-if="selectedDateMode === 'year'">
+              <a-radio-button value="line"><line-chart-outlined /></a-radio-button>
+              <a-radio-button value="column"><bar-chart-outlined /></a-radio-button>
             </a-radio-group>
             <a-dropdown v-if="selectedDateMode === 'month'">
               <template #overlay>
                 <a-menu @click="chooseAccountLevel">
-                  <a-menu-item key="2">大类</a-menu-item>
-                  <a-menu-item key="3">小类</a-menu-item>
+                  <a-menu-item key="2">{{ $t("level1") }}</a-menu-item>
+                  <a-menu-item key="3">{{ $t("level2") }}</a-menu-item>
                 </a-menu>
               </template>
               <a-button>
-                级别
+                {{ $t("level") }}
                 <DownOutlined />
               </a-button>
             </a-dropdown>
@@ -93,58 +53,39 @@
           <div class="statistics">
             <loading-outlined v-if="chartLoading" />
             <div class="indicator">
-              <a-statistic
-                v-if="!chartLoading && chartData.length > 0"
-                :title="`${getValueByOtherKey(
-                  dateModeOptions,
-                  'value',
-                  selectedDateMode,
-                  'label'
-                )}${getValueByOtherKey(
-                  accounts,
-                  'key',
-                  selectedAccount,
-                  'tab'
-                )}`"
-                :value="total"
-              />
-              <a-statistic
-                v-if="
-                  !chartLoading &&
-                  chartData.length > 0 &&
-                  selectedAccount === 'expenses' &&
-                  selectedDateMode === 'year'
-                "
-                :title="`${
-                  selectedDateMode === 'year' ? '月' : '日'
-                }均${getValueByOtherKey(
-                  accounts,
-                  'key',
-                  selectedAccount,
-                  'tab'
-                )}`"
-                :value="average"
-              />
+              <a-statistic v-if="!chartLoading && chartData.length > 0" :title="$t('expensesTitle', [
+                  `${getValueByOtherKey(
+                    dateModeOptions,
+                    'value',
+                    selectedDateMode,
+                    'label'
+                  )}`,
+                  `${getValueByOtherKey(
+                    accounts,
+                    'key',
+                    selectedAccount,
+                    'tab'
+                  )}`,
+                ])
+                " :value="total" />
+              <a-statistic v-if="!chartLoading && chartData.length > 0" :title="$t('averageTitle', [
+                  `${selectedDateMode === 'year' ? t('month') : t('day')}`,
+                  `${getValueByOtherKey(
+                    accounts,
+                    'key',
+                    selectedAccount,
+                    'tab'
+                  )}`,
+                ])
+                " :value="average" />
             </div>
             <div class="chart" v-if="!chartLoading">
-              <line-chart
-                :data="chartData"
-                v-if="
-                  selectedChartMode === 'line' && selectedDateMode === 'year'
-                "
-              ></line-chart>
-              <column-chart
-                :data="chartData"
-                v-if="
-                  selectedChartMode === 'column' && selectedDateMode === 'year'
-                "
-              ></column-chart>
-              <pie-chart
-                :data="chartData"
-                v-if="
-                  selectedChartMode === 'pie' && selectedDateMode === 'month'
-                "
-              ></pie-chart>
+              <line-chart :data="chartData" v-if="selectedChartMode === 'line' && selectedDateMode === 'year'
+                "></line-chart>
+              <column-chart :data="chartData" v-if="selectedChartMode === 'column' && selectedDateMode === 'year'
+                "></column-chart>
+              <pie-chart :data="chartData" v-if="selectedChartMode === 'pie' && selectedDateMode === 'month'
+                "></pie-chart>
             </div>
           </div>
         </a-card>
@@ -172,11 +113,13 @@ import {
   DownOutlined,
 } from "@ant-design/icons-vue";
 import router from "../router";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const dateModeOptions = [
-  { label: "年", value: "year" },
+  { label: t("year"), value: "year" },
   {
-    label: "月",
+    label: t("month"),
     value: "month",
   },
 ];
@@ -192,8 +135,8 @@ let accountLevel = ref("2");
 let total = ref<Number | null>(null);
 let average = ref<String>("");
 const accounts = ref([
-  { key: "expenses", tab: "支出" },
-  { key: "income", tab: "收入" },
+  { key: "expenses", tab: t("expenses") },
+  { key: "income", tab: t("income") },
 ]);
 const selectedAccount = ref<Account>("expenses");
 
@@ -273,11 +216,12 @@ const onAccountChange = () => {
 
 const fetchData = async (account: Account, range: DateMode, options: any) => {
   chartLoading.value = true;
-  const data = await getData(account, range, options);
-  if (data) {
+  const res = await getData(account, range, options);
+  const { data, count } = res;
+  if (res && res.data) {
     chartData = data;
     total.value = sumAmounts(data);
-    average.value = averageAmounts(Number(total.value), data.length);
+    average.value = averageAmounts(Number(total.value), count);
     chartLoading.value = false;
   }
 };
@@ -392,7 +336,7 @@ function averageAmounts(total: number, count: number): string {
   margin-top: 16px;
 }
 
-.chart > div {
+.chart>div {
   width: 100%;
 }
 </style>

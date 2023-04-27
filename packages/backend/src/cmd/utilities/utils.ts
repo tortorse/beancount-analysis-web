@@ -54,4 +54,3 @@ export function execBQL(beanFilePath: string, bql: string): string {
   const result = execSync(cmd).toString();
   return result;
 }
-

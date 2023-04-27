@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { getMonthExpensesData } from "../cmd/bean-query/getMonthData.js";
+import dayjs from "dayjs";
 
 interface GetMonthExpenses {
   (
@@ -14,7 +15,12 @@ const getMonthExpenses: GetMonthExpenses = async function (request, reply) {
   try {
     const { year, month, level } = request.query;
     const expensesData = getMonthExpensesData(year, month, level);
-    reply.send({ data: expensesData, message: "success", status: 1 });
+    reply.send({
+      data: expensesData,
+      count: dayjs(`${year}-${month}`).daysInMonth(),
+      message: "success",
+      status: 1,
+    });
   } catch (error) {
     reply.status(500).send({
       message: `An error occurred while fetching the month expenses data.${error}`,

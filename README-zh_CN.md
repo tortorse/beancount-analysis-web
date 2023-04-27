@@ -4,6 +4,8 @@
 
 Beancount Analysis Web 是一个使用 Web 方式展示 Beancount 账目统计分析的项目。目前支持年支出、年收入、月支出和月收入的分析。
 
+![](./screenshot.png)
+
 ## 前提条件
 
 ## 前提条件

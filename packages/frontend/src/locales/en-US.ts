@@ -1,0 +1,23 @@
+export default {
+  statistic: "Statistic analysis",
+  level1: "Category",
+  noBeancountInfo:
+    "You have not configured any information about beancount, please fill in below",
+  filePath: "File path",
+  operatingCurrency: "Currency unit",
+  level2: "Subcategory",
+  save: "Save",
+  saveSuccess: "Save success",
+  saveFailure: "Save failed, please try again",
+  enterCompleteBeanFilePath: "Please enter the complete bean file path",
+  beanFileNotExist: "Bean file does not exist, please check",
+  settings: "Settings",
+  level: "Level",
+  year: "Year",
+  month: "Month",
+  day: "Day",
+  expenses: "Expenses",
+  income: "Income",
+  expensesTitle: "{1} Of {0}",
+  averageTitle: "Average {0}ly {1}",
+};

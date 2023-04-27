@@ -1,0 +1,9 @@
+2023-03-10 * "公司" "工资" 
+  time:"15:30"
+  Assets:Wallet:现金:CNY  8320.23 CNY
+  Income:Salary
+
+2023-03-10 * "路边" "停车费"
+  time:"12:10"
+  Assets:Wallet:现金:CNY  -12.00 CNY 
+  Expenses:Traffic:停车费

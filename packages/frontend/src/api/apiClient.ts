@@ -4,9 +4,9 @@ import {
   Config,
   SuccessResponse,
   Account,
-  BeanData,
   DateMode,
   DataOptions,
+  DataRes,
 } from "../interfaces";
 
 const API_HOST = import.meta.env.VITE_API_HOST;
@@ -97,21 +97,22 @@ export async function checkBeanFileExist(
  * @param {Account} account 账户名称
  * @param {DateMode} range 时间范围
  * @param {DataOptions} options 数据选项
- * @returns {Promise<BeanData[]>} BeanData 数组
+ * @returns {Promise<DataRes>} 返回数据
  */
 export async function getData(
   account: Account,
   range: DateMode,
   options: DataOptions
-): Promise<BeanData[] | undefined> {
+): Promise<DataRes> {
   const params = objectToUrlParams(options);
   try {
-    const response: AxiosResponse<{ data: BeanData[] }> = await apiClient.get(
+    const response: AxiosResponse = await apiClient.get(
       `/api/${account}/${range}?${params}`
     );
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 

@@ -25,6 +25,11 @@ export interface BeanData {
   currency: string;
 }
 
+export interface DataRes {
+  count: number;
+  data: BeanData[];
+}
+
 export interface DataOptions {
   year: string;
   month?: string;
