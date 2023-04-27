@@ -69,7 +69,7 @@
                 ])
                 " :value="total" />
               <a-statistic v-if="!chartLoading && chartData.length > 0" :title="$t('averageTitle', [
-                  `${selectedDateMode === 'year' ? t('month') : t('day')}`,
+                  `${selectedDateMode === 'year' ? t('monthly') : t('daily')}`,
                   `${getValueByOtherKey(
                     accounts,
                     'key',

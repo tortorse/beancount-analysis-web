@@ -15,6 +15,8 @@ export default {
   year: "年",
   month: "月",
   day: "日",
+  daily: "日",
+  monthly: "月",
   expenses: "支出",
   income: "收入",
   expensesTitle: "{0}{1}",

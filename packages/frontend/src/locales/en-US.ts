@@ -16,8 +16,10 @@ export default {
   year: "Year",
   month: "Month",
   day: "Day",
+  daily: 'Daily',
+  monthly: 'Monthly',
   expenses: "Expenses",
   income: "Income",
   expensesTitle: "{1} Of {0}",
-  averageTitle: "Average {0}ly {1}",
+  averageTitle: "Average {0} {1}",
 };
