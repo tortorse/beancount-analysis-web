@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { getYearIncomeData } from "../cmd/bean-query/getYearData.js";
+import dayjs from "dayjs";
 
 interface GetYearIncome {
   (
@@ -14,7 +15,12 @@ const GetYearIncome: GetYearIncome = async function (request, reply) {
   try {
     const { year } = request.query;
     const incomeData = getYearIncomeData(year);
-    reply.send({ data: incomeData, count: 12, message: "success", status: 1 });
+    reply.send({
+      data: incomeData,
+      count: dayjs().year() === Number(year) ? dayjs().month() + 1 : 12,
+      message: "success",
+      status: 1,
+    });
   } catch (error) {
     reply.status(500).send({
       message: `An error occurred while fetching the year income data.${error}`,
